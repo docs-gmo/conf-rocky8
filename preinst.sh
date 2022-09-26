@@ -101,9 +101,9 @@ writeResult() {
 #writeResult "$?" "$msg"
 
 # install python
-msg="python3.8 installation"
+msg="pip installation"
 writeLog "$msg. Be patient ..."
-sudo dnf -y install python3 >> $logFile 2>&1
+sudo dnf -y install python3-pip >> $logFile 2>&1
 writeResult "$?" "$msg"
 
 # set python3.8
@@ -111,7 +111,7 @@ writeResult "$?" "$msg"
 #writeLog "$msg"
 #sudo update-alternatives --set python /usr/bin/python3.8
 #writeResult "$?" "$msg"
-
+read
 # mise à jour de pip
 msg="pip upgrade"
 writeLog "$msg"
