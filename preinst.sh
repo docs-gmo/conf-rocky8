@@ -115,13 +115,13 @@ read
 # mise à jour de pip
 msg="pip upgrade"
 writeLog "$msg"
-pip3.8 install --user --upgrade pip >> $logFile 2>&1
+pip install --user --upgrade pip >> $logFile 2>&1
 writeResult "$?" "$msg" 
 
 # installation ansible
 msg="ansible installation"
 writeLog "$msg. Be patient ..."
-pip3.8 install ansible >> $logFile 2>&1
+pip install ansible >> $logFile 2>&1
 writeResult "$?" "$msg" 
 
 # generate ssh key
