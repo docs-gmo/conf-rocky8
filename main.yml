@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+
+  - name: upgrade all packages. Please wait ...
+    dnf:
+      name: "*" 
+      state: latest
+
+  - name: include playbook hosts.yml
+    include_tasks: hosts.yml
+
+  - name: include playbook inst-packages.yml
+    include_tasks: inst-packages.yml
+  
+  - name: include playbook misc.yml
+    include_tasks: misc.yml
+  
+  - name: include playbook chrony.yml
+    include_tasks: chrony.yml
+    

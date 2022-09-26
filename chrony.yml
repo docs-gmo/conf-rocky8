@@ -1,0 +1,18 @@
+---
+  - name: install chrony
+    yum:
+      name: chrony
+      state: present
+
+  - name: disable chrony ipv6
+    lineinfile:
+      path:  /etc/sysconfig/chronyd
+      #insertafter: EOF
+      line: OPTIONS="-4"
+      create: True 
+  
+  - name: start and active service chronyd
+    systemd:
+      name: chronyd
+      enabled: true
+      state: started
