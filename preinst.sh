@@ -102,7 +102,7 @@ writeResult() {
 
 # install python
 msg="pip installation"
-writeLog "$msg. Be patient ..."
+writeLog "$msg"
 sudo dnf -y install python3-pip >> $logFile 2>&1
 writeResult "$?" "$msg"
 
