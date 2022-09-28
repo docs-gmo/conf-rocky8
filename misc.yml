@@ -1,47 +1,47 @@
 ---
-  - name: verify if IPV6 is activ
-    stat: path=/proc/sys/net/ipv6/conf/all/disable_ipv6
-    register: ipv6
-
-  - name: unactive ipv6 (1/2)
-    ansible.posix.sysctl:
-      name: net.ipv6.conf.all.disable_ipv6
-      value: 1
-      sysctl_set: yes
-      state: present
-      reload: yes
-    when: ipv6.stat.exists == True
+#  - name: verify if IPV6 is activ
+#    stat: path=/proc/sys/net/ipv6/conf/all/disable_ipv6
+#    register: ipv6
+#
+#  - name: unactive ipv6 (1/2)
+#    ansible.posix.sysctl:
+#      name: net.ipv6.conf.all.disable_ipv6
+#      value: 1
+#      sysctl_set: yes
+#      state: present
+#      reload: yes
+#    when: ipv6.stat.exists == True
+#  
+#  - name: unactive ipv6 (2/2) 
+#    ansible.posix.sysctl:
+#      name: net.ipv6.conf.default.disable_ipv6
+#      value: 1
+#      sysctl_set: yes
+#      state: present
+#      reload: yes
+#    when: ipv6.stat.exists == True
+#  
+#  - name: secure stack ip part 1
+#    ansible.posix.sysctl:
+#      name: net.ipv4.tcp_timestamps
+#      value: "0"
+#      sysctl_set: yes
+#      state: present
+#      reload: yes
+#  
+#  - name: secure stack ip part 2
+#    firewalld:
+#      service: dhcpv6-client
+#      permanent: true
+#      state: disabled
+#  
+#  - name: unactive ipv6 sshd
+#    lineinfile:
+#      dest: /etc/ssh/sshd_config
+#      insertafter: '^#ListenAddress 0.0.0.0'
+#      line: 'ListenAddress 0.0.0.0'
   
-  - name: unactive ipv6 (2/2) 
-    ansible.posix.sysctl:
-      name: net.ipv6.conf.default.disable_ipv6
-      value: 1
-      sysctl_set: yes
-      state: present
-      reload: yes
-    when: ipv6.stat.exists == True
-  
-  - name: secure stack ip part 1
-    ansible.posix.sysctl:
-      name: net.ipv4.tcp_timestamps
-      value: "0"
-      sysctl_set: yes
-      state: present
-      reload: yes
-  
-  - name: secure stack ip part 2
-    firewalld:
-      service: dhcpv6-client
-      permanent: true
-      state: disabled
-  
-  - name: unactive ipv6 sshd
-    lineinfile:
-      dest: /etc/ssh/sshd_config
-      insertafter: '^#ListenAddress 0.0.0.0'
-      line: 'ListenAddress 0.0.0.0'
-  
-  - name: unactivate CRTL-DEL 
+  - name: unactivate CRTL-ALT-DEL
     file:
       src: /dev/null
       dest: /usr/lib/systemd/system/ctrl-alt-del.target
