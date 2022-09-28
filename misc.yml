@@ -11,9 +11,21 @@
       insertafter: EOF
       line: 'export PS1="\[\033[0;32m\][\[\033[0;31m\]\u\[\033[0;31m\]@\h \[\033[0;32m\]\W]# \[\033[0;37m\]"'
   
-   - name: "{{ the_user }} prompt bashrc"
+  - name: "{{ the_user }} prompt bashrc (1/2)"
     lineinfile:
       path: /home/{{ the_user }}/.bashrc
       insertafter: EOF
-      line: '# prompt color\nexport PS1="\[\033[0;32m\][\[\033[1;94m\]\u\[\033[0;33m\]@\h \[\033[0;32m\]\W]# \[\033[0;37m\]"'
-        
+      line: '# prompt color'
+      
+  - name: "{{ the_user }} prompt bashrc (2/2"
+    lineinfile:
+      path: /home/{{ the_user }}/.bashrc
+      insertafter: EOF
+      line: 'export PS1="\[\033[0;32m\][\[\033[1;94m\]\u\[\033[0;33m\]@\h \[\033[0;32m\]\W]# \[\033[0;37m\]"'
+
+  - name: config vim      
+    copy: 
+      src: vimrc
+      dest: "/home/{{ the_user }}/.vimrc"
+      owner: "{{ the_user}}"
+      group: "{{ the_user}}"

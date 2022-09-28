@@ -111,7 +111,7 @@ writeResult "$?" "$msg"
 #writeLog "$msg"
 #sudo update-alternatives --set python /usr/bin/python3.8
 #writeResult "$?" "$msg"
-read
+
 # mise à jour de pip
 msg="pip upgrade"
 writeLog "$msg"
