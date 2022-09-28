@@ -1,14 +1,11 @@
 #!/bin/bash
 ####################################################################
-# Decription: Skeleton for script with output screen and log file
+# Decription: post-install Rocky 9
 # Author: Gilles Mouchet (gilles.mouchet@gmail.com)
-# Creation Date: 18-Jun-2022
+# Creation Date: 18-Sep-2022
 # Version: 1.0
-# Sources:
-#    https://www.computerhope.com/unix/bash/getopts.ht
-#
 # Changelog:
-#    V1.0 - 18-Jun-2022 - GMo
+#    V1.0 - 18-Sep-2022 - GMo
 #      Added
 #      - Creation of script from scratch
 #
@@ -17,15 +14,15 @@
 #####################################################################
 # variables
 #####################################################################
-version=0.1
+version=1.0
 scriptName=`basename $0`
 
 # variables for display the results on the screen and in log file
 progName=`echo $0 | sed -e 's|.*/||g' | cut -f1 -d.`
 dayOfWeek=`/bin/date +%a`
 daySuffix="_$dayOfWeek"
-tempOutputPath=/tmp
-tempOutputFile=$tempOutputPath/$progName.$$
+#tempOutputPath=/tmp
+#tempOutputFile=$tempOutputPath/$progName.$$
 logPath=/tmp
 logFile=$logPath/$progName$daySuffix.log
 
@@ -72,45 +69,14 @@ writeResult() {
   fi
 }
 
-# Trick to display the results on the screen and in log file at the same time
-# 1) Creation of a temporary file
-# 2) Running a tail -f command on this file in the background
-# 3) Retrieving the tail process ID, so that it can be killed at the end of the script
-#4 ) Redirect standard output to file
-#5 ) Redirect errors to standard output
-
-# 1)
-#cat /dev/null > $tempOutputFile
-# 2)
-#tail -f $tempOutputFile &
-# 3)
-#tailJob=$!
-# 4)
-#exec >> $tempOutputFile
-# 5)
-#exec 2>&1
-
 #####################################################################
 # main
 #####################################################################
-
-# mise à jour de rocky
-#msg="Mise à jour de Rocky 8"
-#writeLog "$msg. Be patient ..."
-#sudo dnf -y update >> $logFile 2>&1
-#writeResult "$?" "$msg"
-
 # install python
 msg="pip installation"
 writeLog "$msg"
 sudo dnf -y install python3-pip >> $logFile 2>&1
 writeResult "$?" "$msg"
-
-# set python3.8
-#msg="set python3.8 default"
-#writeLog "$msg"
-#sudo update-alternatives --set python /usr/bin/python3.8
-#writeResult "$?" "$msg"
 
 # mise à jour de pip
 msg="pip upgrade"
@@ -147,22 +113,3 @@ msg="execute playbook"
 writeLog "$msg"
 ansible-playbook -i inventory main.yml -e the_user=$LOGNAME
 writeResult "$?" "$msg"
-
-## Installation  du repo epel
-
-#dnf -y install epel-release
-#writeResult "$?" "Installation du repository EPEL"
-
-## Installation des pacakges
-#dnf -y --enablerepo=powertools install vim glances htop bind-utils tcptraceroute telnet lsof elinks rsync lynx postfix man mlocate mutt mailx wget yum-utils bash-completion git 
-#####################################################################
-# cleanups
-#####################################################################
-# copy the tmpfile to logFile
-#cat $tempOutputFile > $logFile
-
-#sleep 2
-# end of printing at the console
-#kill -9 $tailJob > /dev/null
-# Deleting the standard output redirection temporary file
-#rm -f $tempOutputFile
