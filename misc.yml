@@ -62,7 +62,7 @@
   
   - name: root prompt user
     lineinfile:
-      path: "/home/{{ ansible_user_id  }}/.bashrc"
+      path: "/home/{{ ansible_user_id }}/.bashrc"
       insertafter: EOF
       line: 'export PS1="\[\033[0;32m\][\[\033[1;94m\]\u\[\033[0;33m\]@\h \[\033[0;32m\]\W]# \[\033[0;37m\]"'
 
