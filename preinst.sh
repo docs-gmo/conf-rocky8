@@ -145,7 +145,7 @@ writeResult "$?" "$msg"
 # execute ansible playbook
 msg="execute playbook"
 writeLog "$msg"
-ansible-playbook -i inventory main.yml 
+ansible-playbook -i inventory main.yml -e the_user=$LOGNAME
 writeResult "$?" "$msg"
 
 ## Installation  du repo epel
